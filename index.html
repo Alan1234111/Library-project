@@ -1,13 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="icon" href="img/libraly-icon.png" type="image/icon type" />
+    <link rel="stylesheet" href="style.css" />
     <title>Libraly</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header__name">library</h1>
+      <button class="header__log-in">Log in</button>
+    </header>
+
+    <section class="add-book">
+      <button class="add-book__button">+ Add Book</button>
+    </section>
+
+    <div class="add-book-modal">
+      <p class="add-book-modal__text">Add new book</p>
+
+      <form action="#" class="add-book-modal__form">
+        <ul class="add-book-modal__inputs">
+          <li class="add-book-modal__li">
+            <label for="title"></label>
+            <input type="text" placeholder="Title" name="title" id="title" />
+          </li>
+          <li class="add-book-modal__li">
+            <label for="author"></label>
+            <input type="text" placeholder="Author" name="author" id="author" />
+          </li>
+          <li class="add-book-modal__li">
+            <label for="pages"></label>
+            <input type="number" placeholder="Pages" name="pages" id="pages" min="0" max="5000" />
+          </li>
+          <li class="add-book-modal__li">
+            <label for="read">Have you read it?</label>
+            <input type="checkbox" name="read" id="read" />
+          </li>
+        </ul>
+
+        <button class="add-book-modal__submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="index.js"></script>
+  </body>
 </html>
