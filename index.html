@@ -21,22 +21,22 @@
       <button class="add-book__button">+ Add Book</button>
     </section>
 
-    <div class="add-book-modal">
+    <div class="add-book-modal hide">
       <p class="add-book-modal__text">Add new book</p>
 
       <form action="#" class="add-book-modal__form">
         <ul class="add-book-modal__inputs">
           <li class="add-book-modal__li">
             <label for="title"></label>
-            <input type="text" placeholder="Title" name="title" id="title" />
+            <input type="text" placeholder="Title" name="title" id="title" required />
           </li>
           <li class="add-book-modal__li">
             <label for="author"></label>
-            <input type="text" placeholder="Author" name="author" id="author" />
+            <input type="text" placeholder="Author" name="author" id="author" required />
           </li>
           <li class="add-book-modal__li">
             <label for="pages"></label>
-            <input type="number" placeholder="Pages" name="pages" id="pages" min="0" max="5000" />
+            <input type="number" placeholder="Pages" name="pages" id="pages" min="0" max="5000" required />
           </li>
           <li class="add-book-modal__li">
             <label for="read">Have you read it?</label>
@@ -47,6 +47,32 @@
         <button class="add-book-modal__submit-btn">Submit</button>
       </form>
     </div>
+
+    <main class="library">
+      <div class="book">
+        <p class="book-title">Pan Tadeusz</p>
+        <p class="book-author">Adam Mickiewicz</p>
+        <p class="book-pages">531 pages</p>
+        <button class="book-isread">Read</button>
+        <button class="book-remove">Remove</button>
+      </div>
+
+      <div class="book">
+        <p class="book-title">Pan Tadeusz</p>
+        <p class="book-author">Adam Mickiewicz</p>
+        <p class="book-pages">531 pages</p>
+        <button class="book-isread">Read</button>
+        <button class="book-remove">Remove</button>
+      </div>
+
+      <div class="book">
+        <p class="book-title">Pan Tadeusz</p>
+        <p class="book-author">Adam Mickiewicz</p>
+        <p class="book-pages">531 pages</p>
+        <button class="book-isread">Read</button>
+        <button class="book-remove">Remove</button>
+      </div>
+    </main>
 
     <script type="text/javascript" src="index.js"></script>
   </body>

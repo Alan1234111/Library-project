@@ -92,6 +92,7 @@ body {
 .add-book-modal__li input {
   width: 90%;
   padding: 10px 10px;
+  border-radius: 8px;
   border: #e5e7eb 1px solid;
   font-weight: bold;
   font-size: 1rem;
@@ -119,4 +120,28 @@ body {
   font-weight: bold;
   background-color: #9fff9c;
   cursor: pointer;
+}
+
+/* main section */
+
+.library {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  column-gap: 2rem;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.book {
+  background-color: white;
+}
+
+.book p {
+  padding: 8px 0;
+}
+
+.hide {
+  display: none;
 }
