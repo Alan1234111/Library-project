@@ -14,7 +14,11 @@ let myLibrary = [];
 
 function Book() {}
 
-function removeBookFromLibrary() {}
+function removeBookFromLibrary() {
+  const bookSection = this.parentNode;
+  myLibrary.splice(bookSection.dataset.index, 1);
+  bookSection.remove();
+}
 
 function addBookToLibrary(e) {
   e.preventDefault();
@@ -25,8 +29,6 @@ function addBookToLibrary(e) {
     isRead: isreadBook.checked,
   };
 
-  console.log(book);
-
   myLibrary.push(book);
   displayBooks();
 }
@@ -34,8 +36,9 @@ function addBookToLibrary(e) {
 function displayBooks() {
   library.innerHTML = "";
 
-  myLibrary.forEach((book) => {
+  myLibrary.forEach((book, index) => {
     const div = document.createElement("div");
+    div.dataset.index = index;
     div.classList.add("book");
     library.appendChild(div);
 
