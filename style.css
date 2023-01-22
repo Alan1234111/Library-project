@@ -5,6 +5,7 @@
 }
 
 body {
+  position: relative;
   background-color: #e5e7eb;
   font-family: "Roboto", sans-serif;
   word-wrap: break-word;
@@ -56,15 +57,16 @@ body {
   font-size: 1rem;
   font-weight: bold;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .add-book__button:hover {
   opacity: 0.8;
 }
 
-/* Add book modal section */
+/* Add book popup section */
 
-.add-book-modal {
+.add-book-popup {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -72,46 +74,48 @@ body {
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 50%;
+  min-height: 30%;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  background-color: #fff;
+  background-color: #f0eef1;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 0.2s all ease-in;
+  z-index: 1;
 }
 
-.add-book-modal__text {
+.add-book-popup__text {
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.add-book-modal__li {
-  padding: 0.8rem 0;
+.add-book-popup__li {
+  padding: 1rem 0;
   list-style: none;
 }
 
-.add-book-modal__li input {
+.add-book-popup__li input {
   width: 90%;
-  padding: 10px 10px;
+  padding: 12px 10px;
   border-radius: 8px;
   border: #e5e7eb 1px solid;
   font-weight: bold;
   font-size: 1rem;
 }
 
-.add-book-modal__li:nth-child(4) {
+.add-book-popup__li:nth-child(4) {
   display: flex;
   justify-content: center;
   font-weight: bold;
 }
 
-.add-book-modal__li:nth-child(4) input[type="checkbox"] {
+.add-book-popup__li:nth-child(4) input[type="checkbox"] {
   accent-color: white;
   width: 20%;
   transition: 0.2s;
 }
 
-.add-book-modal__submit-btn {
+.add-book-popup__submit-btn {
   width: 90%;
   margin-top: 10px;
   padding: 0.7rem 0;
@@ -177,5 +181,20 @@ body {
 }
 
 .hide {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.overlay {
   display: none;
+}
+
+.overlay.active {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: max(100%, 100vh);
+  background-color: black;
+  opacity: 0.2;
 }
