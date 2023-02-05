@@ -1,106 +1,120 @@
-const addBookBtn = document.querySelector(".add-book__button");
-const addBookPopup = document.querySelector(".add-book-popup");
-const overlay = document.querySelector(".overlay");
-const isReadBookBtns = document.querySelectorAll(".book-isread");
-const bookInformationForm = document.querySelector(".add-book-popup__form");
-const library = document.querySelector(".library");
+class Book {
+  myLibrary = [];
 
-const bookTitle = document.getElementById("title");
-const bookAuthor = document.getElementById("author");
-const bookPages = document.getElementById("pages");
-const isreadBook = document.getElementById("read");
+  constructor({addBookBtn, addBookPopup, overlay, isReadBookBtns, bookInformationForm, library, bookTitle, bookAuthor, bookPages, isreadBook}) {
+    this.addBookBtn = addBookBtn;
+    this.addBookPopup = addBookPopup;
+    this.overlay = overlay;
+    this.isReadBookBtns = isReadBookBtns;
+    this.bookInformationForm = bookInformationForm;
+    this.library = library;
+    this.bookTitle = bookTitle;
+    this.bookAuthor = bookAuthor;
+    this.bookPages = bookPages;
+    this.isreadBook = isreadBook;
 
-let myLibrary = [];
+    this.addBookBtn.addEventListener("click", this.showHideFromAddBook.bind(this));
+    this.overlay.addEventListener("click", this.showHideFromAddBook.bind(this));
+    this.isReadBookBtns.forEach((btn) => btn.addEventListener("click", this.isBookRead));
+    this.bookInformationForm.addEventListener("submit", this.addBookToLibrary.bind(this));
+    this.bookInformationForm.addEventListener("submit", this.showHideFromAddBook.bind(this));
+  }
 
-function Book() {}
+  removeBookFromLibrary(e) {
+    const bookSection = e.target.parentNode;
+    this.myLibrary.splice(bookSection.dataset.index, 1);
+    bookSection.remove();
+  }
 
-function removeBookFromLibrary() {
-  const bookSection = this.parentNode;
-  myLibrary.splice(bookSection.dataset.index, 1);
-  bookSection.remove();
-}
+  addBookToLibrary(e) {
+    e.preventDefault();
+    const book = {
+      title: this.bookTitle.value,
+      author: this.bookAuthor.value,
+      pages: this.bookPages.value,
+      isRead: this.isreadBook.checked,
+    };
 
-function addBookToLibrary(e) {
-  e.preventDefault();
-  const book = {
-    title: bookTitle.value,
-    author: bookAuthor.value,
-    pages: bookPages.value,
-    isRead: isreadBook.checked,
-  };
+    this.myLibrary.push(book);
+    this.displayBooks();
+  }
 
-  myLibrary.push(book);
-  displayBooks();
-}
+  displayBooks() {
+    this.library.innerHTML = "";
 
-function displayBooks() {
-  library.innerHTML = "";
+    this.myLibrary.forEach((book, index) => {
+      const div = document.createElement("div");
+      div.dataset.index = index;
+      div.classList.add("book");
+      this.library.appendChild(div);
 
-  myLibrary.forEach((book, index) => {
-    const div = document.createElement("div");
-    div.dataset.index = index;
-    div.classList.add("book");
-    library.appendChild(div);
+      const title = document.createElement("p");
+      title.classList.add("book-title");
+      title.textContent = `"${book.title}"`;
+      div.appendChild(title);
 
-    const title = document.createElement("p");
-    title.classList.add("book-title");
-    title.textContent = `"${book.title}"`;
-    div.appendChild(title);
+      const author = document.createElement("p");
+      author.classList.add("book-author");
+      author.textContent = book.author;
+      div.appendChild(author);
 
-    const author = document.createElement("p");
-    author.classList.add("book-author");
-    author.textContent = book.author;
-    div.appendChild(author);
+      const pages = document.createElement("p");
+      pages.classList.add("pages-title");
+      pages.textContent = `${book.pages} pages`;
+      div.appendChild(pages);
 
-    const pages = document.createElement("p");
-    pages.classList.add("pages-title");
-    pages.textContent = `${book.pages} pages`;
-    div.appendChild(pages);
+      const isread = document.createElement("button");
+      isread.classList.add("book-isread");
+      if (book.isRead) {
+        isread.textContent = "Read";
+        isread.classList = "read";
+      } else {
+        isread.textContent = "Not read";
+        isread.classList = "not-read";
+      }
+      div.appendChild(isread);
+      isread.addEventListener("click", this.isBookRead);
 
-    const isread = document.createElement("button");
-    isread.classList.add("book-isread");
-    if (book.isRead) {
-      isread.textContent = "Read";
-      isread.classList = "read";
+      const remove = document.createElement("button");
+      remove.classList.add("book-remove");
+      remove.textContent = "Remove";
+      div.appendChild(remove);
+      remove.addEventListener("click", this.removeBookFromLibrary.bind(this));
+    });
+  }
+
+  showHideFromAddBook() {
+    if (this.addBookPopup.classList.contains("hide")) {
+      this.addBookPopup.classList.remove("hide");
+      this.overlay.classList.add("active");
     } else {
-      isread.textContent = "Not read";
-      isread.classList = "not-read";
+      this.addBookPopup.classList.add("hide");
+      this.overlay.classList.remove("active");
     }
-    div.appendChild(isread);
-    isread.addEventListener("click", isBookRead);
+  }
 
-    const remove = document.createElement("button");
-    remove.classList.add("book-remove");
-    remove.textContent = "Remove";
-    div.appendChild(remove);
-    remove.addEventListener("click", removeBookFromLibrary);
-  });
-}
-
-function showHideFromAddBook() {
-  if (addBookPopup.classList.contains("hide")) {
-    addBookPopup.classList.remove("hide");
-    overlay.classList.add("active");
-  } else {
-    addBookPopup.classList.add("hide");
-    overlay.classList.remove("active");
+  isBookRead() {
+    if (this.classList.contains("not-read")) {
+      this.classList.add("read");
+      this.classList.remove("not-read");
+      this.textContent = "Read";
+    } else {
+      this.classList.add("not-read");
+      this.classList.remove("read");
+      this.textContent = "Not read";
+    }
   }
 }
 
-function isBookRead() {
-  if (this.classList.contains("not-read")) {
-    this.classList.add("read");
-    this.classList.remove("not-read");
-    this.textContent = "Read";
-  } else {
-    this.classList.add("not-read");
-    this.classList.remove("read");
-    this.textContent = "Not read";
-  }
-}
-
-addBookBtn.addEventListener("click", showHideFromAddBook);
-overlay.addEventListener("click", showHideFromAddBook);
-isReadBookBtns.forEach((btn) => btn.addEventListener("click", isBookRead));
-bookInformationForm.addEventListener("submit", addBookToLibrary);
-bookInformationForm.addEventListener("submit", showHideFromAddBook);
+const book = new Book({
+  addBookBtn: document.querySelector(".add-book__button"),
+  addBookPopup: document.querySelector(".add-book-popup"),
+  overlay: document.querySelector(".overlay"),
+  isReadBookBtns: document.querySelectorAll(".book-isread"),
+  bookInformationForm: document.querySelector(".add-book-popup__form"),
+  library: document.querySelector(".library"),
+  bookTitle: document.getElementById("title"),
+  bookAuthor: document.getElementById("author"),
+  bookPages: document.getElementById("pages"),
+  isreadBook: document.getElementById("read"),
+});
